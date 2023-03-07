@@ -1,23 +1,38 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [messages, setMessages] = useState([]);
+
+  const handleMessageSubmit = (event) => {
+    event.preventDefault();
+    const messageInput = event.target.elements.message;
+    const message = messageInput.value.trim();
+    if (message !== '') {
+      setMessages((prevMessages) => [...prevMessages, { text: message, sender: 'user' }]);
+      messageInput.value = '';
+      const messagesContainer = document.querySelector('.messages');
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="chat-wrapper">
+        <div className="chat-container">
+          <div className="messages">
+            {messages.map((message, index) => (
+              <div key={index} className={`message ${message.sender}`}>
+                <div className="message-text">{message.text}</div>
+              </div>
+            ))}
+          </div>
+          <form onSubmit={handleMessageSubmit} className="input-container">
+            <input type="text" name="message" placeholder="Type a message..." autoComplete="off" />
+            <button type="submit"><i className="fa fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }
