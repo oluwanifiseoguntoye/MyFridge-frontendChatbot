@@ -66,9 +66,9 @@ input[type="text"] {
 }
 
 .message.bot {
-  float: right;
+  float: left;
   border: 2px solid #777;
-  color: #777;
+  color: black;
 }
 
 .chat-wrapper {
@@ -78,14 +78,15 @@ input[type="text"] {
 
 .message-text {
   text-align: left;
+  max-width: 80%;
 }
 
 .icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   margin-right: 10px;
 }
 
@@ -99,4 +100,5 @@ input[type="text"] {
   background-color: #eaeaea;
   color: #444;
   border-radius: 50%;
+  
 }

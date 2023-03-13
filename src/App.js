@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
 
+
+
 function App() {
   const [messages, setMessages] = useState([]);
   const messagesContainerRef = useRef(null);
@@ -12,14 +14,41 @@ function App() {
     if (message !== '') {
       setMessages((prevMessages) => [...prevMessages, { text: message, sender: 'user' }]);
       messageInput.value = '';
+
+      // Send user's message to the RecipeBot view
+      fetch('http://127.0.0.1:8000/recipesapi/recipebot/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // Add RecipeBot's response to messages state
+          setMessages((prevMessages) => [...prevMessages, { text: data.message, sender: 'bot' }]);
+        })
+        .catch((error) => console.error(error));
     }
   };
 
+  const [initialMessageSent, setInitialMessageSent] = useState(false);
+
   useEffect(() => {
     const messagesContainer = messagesContainerRef.current;
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-  }, [messages]);
-
+    if (messagesContainer.scrollHeight > messagesContainer.clientHeight) {
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+  }, [messages.length]);
+  
+  
+  useState(() => {
+    console.log('useEffect ran');
+  
+    if (!initialMessageSent) {
+      setInitialMessageSent(true);
+      setMessages((prevMessages) => [...prevMessages, { text: "Hi! What ingredients would you like to use?", sender: 'bot' }]);
+    }
+  }, [setMessages]);
+  
   return (
     <div className="App">
       <div className="chat-wrapper">
