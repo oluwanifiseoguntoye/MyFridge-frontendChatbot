@@ -13,10 +13,9 @@ This is a chat application that allows users to interact with the RecipeBot API.
 <li>RecipeBot API</li>
 
 # Usage
-<ul> 
-<li>Type a message into the input field and click the "send" button or press enter.</li>
-<li>The message will be displayed in the chat window.</li>
-<li>The app will send the user's message to the RecipeBot API and display the response in the chat window.</li>
-<li>Continue sending messages and receiving responses until you find the recipe you want.</li>
 
-</ul>
+1. Type a message into the input field and click the "send" button or press enter.
+2. The message will be displayed in the chat window.
+3. The app will send the user's message to the RecipeBot API and display the response in the chat window.
+4. Continue sending messages and receiving responses until you find the recipe you want.
+
